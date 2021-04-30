@@ -1,0 +1,27 @@
+{
+  "name": "weather-systems",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node index.ts",
+    "install-core": "arduino-cli core install arduino:avr",
+    "compile": "arduino-cli compile --fqbn arduino:avr:uno ./Controller/Controller",
+    "compile-tests": "arduino-cli compile --fqbn arduino:avr:uno ./Controller/Tests",
+    "upload": "arduino-cli upload -p /dev/cu.usbmodem2101 --fqbn arduino:avr:uno ./Controller/Controller",
+    "upload-tests": "arduino-cli upload -p /dev/cu.usbmodem2101 --fqbn arduino:avr:uno ./Controller/Tests"
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serialport": "^9.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^15.0.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  }
+}
