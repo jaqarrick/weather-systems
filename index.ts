@@ -1,6 +1,7 @@
 const SerialPort = require("serialport");
 const blinkTest = require("./tests/blinkTest");
 const weatherFetcher = require("./tests/weatherFetcher")();
+const server = require('./server')
 const parsers = SerialPort.parsers;
 const parser = new parsers.Readline({
   deminiter: "\r\n",
@@ -26,3 +27,5 @@ const wind = weatherFetcher.getWindSpeed(city);
 wind
   .then((speed) => console.log(`The wind speed in ${city} is ${speed}.`))
   .catch((err) => console.log(err));
+
+server()
