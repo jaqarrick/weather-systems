@@ -1,22 +1,23 @@
-const SerialPort = require("serialport")
-const blinkTests = require('./tests/blinkTest')
-
-const parsers = SerialPort.parsers
+const SerialPort = require("serialport");
+const blinkTest = require("./tests/blinkTest");
+const weatherFetcher = require("./tests/weatherFetcher")();
+const parsers = SerialPort.parsers;
 const parser = new parsers.Readline({
-    deminiter: "\r\n",
-})
+  deminiter: "\r\n",
+});
 
-const port = new SerialPort("/dev/cu.usbmodem2101", {
-    baudRate: 9600,
-    dataBits: 8,
-    parity: "none",
-    stopBits: 1,
-    flowControl: false,
-})
+// Need a way of getting default port -- comment this out for now
 
-port.pipe(parser)
+// const port = new SerialPort("/dev/cu.usbmodem2101", {
+//   baudRate: 9600,
+//   dataBits: 8,
+//   parity: "none",
+//   stopBits: 1,
+//   flowControl: false,
+// });
 
+// port.pipe(parser);
 
-blinkTests(port)
+// blinkTest(port)
 
-
+weatherFetcher.getWindSpeed("Seattle")

@@ -1,4 +1,4 @@
-const blinkTest = port => {
+const BlinkTest = port => {
 
     const blink = () => {
         let counter = "0"
@@ -27,5 +27,5 @@ const blinkTest = port => {
     
 }
 
-module.exports = blinkTest
+module.exports = BlinkTest
 

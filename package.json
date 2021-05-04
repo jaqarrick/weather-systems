@@ -11,12 +11,12 @@
     "compile-tests": "arduino-cli compile --fqbn arduino:avr:uno ./Controller/Tests",
     "upload": "arduino-cli upload -p /dev/cu.usbmodem2101 --fqbn arduino:avr:uno ./Controller/Controller",
     "upload-tests": "arduino-cli upload -p /dev/cu.usbmodem2101 --fqbn arduino:avr:uno ./Controller/Tests"
-
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "node-fetch": "^2.6.1",
     "serialport": "^9.0.7"
   },
   "devDependencies": {
