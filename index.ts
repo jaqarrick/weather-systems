@@ -20,4 +20,9 @@ const parser = new parsers.Readline({
 
 // blinkTest(port)
 
-weatherFetcher.getWindSpeed("Seattle")
+const city = "Seattle";
+const wind = weatherFetcher.getWindSpeed(city);
+
+wind
+  .then((speed) => console.log(`The wind speed in ${city} is ${speed}.`))
+  .catch((err) => console.log(err));
