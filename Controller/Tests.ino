@@ -1,36 +1,40 @@
 
 
-int lightPin = 2;
+// int lightPin = 2;
 
-void setup() {
-
-
-    pinMode(lightPin, OUTPUT);
-    Serial.begin(9600);
+// void setup() {
 
 
-}
-
-void loop() {
-
-    if(Serial.available() > 0){
-
-        String receivedString = "";
-
-        while(Serial.available() > 0){
-
-            receivedString += char(Serial.read());
-
-        }
+//     pinMode(lightPin, OUTPUT);
+//     Serial.begin(9600);
 
 
-        if(receivedString == "1")
-            digitalWrite(lightPin, HIGH);
-        else 
-            digitalWrite(lightPin, LOW);
+// }
+
+// void loop() {
+
+//     if(Serial.available() > 0){
+        
+//         String receivedString = "";
+
+//         while(Serial.available() > 0){
+
+//             receivedString += char(Serial.read());
+
+//         }
+
+
+//         if(receivedString == "1")
+//             digitalWrite(lightPin, HIGH);
+//         else 
+//             digitalWrite(lightPin, LOW);
         
 
 
-    }
+//     }
 
-}
+
+//     Serial.print("Hello World\n");
+//     delay(5000);
+
+// }

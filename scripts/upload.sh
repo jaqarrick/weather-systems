@@ -1,8 +1,8 @@
 #!/bin/bash
-current_path="./Controller/Controller"
+current_path="./controller/Servo"
 if [ "$1" == "test" ]
     then 
-        $current_path="./Controller/Servo"
+        $current_path="./controller/Tests"
 fi
 current_port=$(arduino-cli board list | grep '/dev/cu.usb' | cut -d ' ' -f1)
 
