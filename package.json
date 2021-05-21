@@ -4,13 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "launch": "yarn upload && yarn serve",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node index.ts",
+    "serve": "ts-node index.ts",
     "install-core": "arduino-cli core install arduino:avr",
-    "compile": "arduino-cli compile --fqbn arduino:avr:uno ./Controller/Controller",
-    "compile-tests": "arduino-cli compile --fqbn arduino:avr:uno ./Controller/Tests",
-    "upload": "arduino-cli upload -p /dev/cu.usbmodem2101 --fqbn arduino:avr:uno ./Controller/Controller",
-    "upload-tests": "arduino-cli upload -p /dev/cu.usbmodem2101 --fqbn arduino:avr:uno ./Controller/Tests"
+    "upload": "bash scripts/upload.sh"
   },
   "keywords": [],
   "author": "",
