@@ -6,7 +6,7 @@
   "scripts": {
     "launch": "yarn upload && yarn serve",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "ts-node index.ts",
+    "serve": "ts-node src/index.ts",
     "install-core": "arduino-cli core install arduino:avr",
     "upload": "bash scripts/upload.sh"
   },

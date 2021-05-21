@@ -1,6 +1,6 @@
 const SerialPort = require("serialport")
 const blinkTest = require("./tests/blinkTest")
-const weatherFetcher = require("./tests/weatherFetcher")()
+const weatherFetcher = require("./api/weatherFetcher")()
 const server = require("./server")
 const fs = require("fs")
 const numberTest = require("./tests/numberTest")
