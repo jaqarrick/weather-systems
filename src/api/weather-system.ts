@@ -1,16 +1,16 @@
 const nodeFetch = require("node-fetch");
 const fs = require("fs");
 const path = require("path");
-const translateWindSpeed = require("./translateWindSpeed");
 const SerialPort = require("serialport");
 const apiKey = fs.readFileSync(path.join("apikey.txt"), { encoding: "utf8" });
 
 class WeatherSystem {
-  city: string;
-  port: any;
-  parser: any;
-  delay: number;
-  interval: any;
+  public city: string;
+  public port: typeof SerialPort;
+  private parser: typeof SerialPort.parsers;
+  private delay: number;
+  private interval: ReturnType<typeof setInterval>;
+  private isPortOpen: Promise<boolean>
 
   constructor(pathToSerialPort: string | null, city: string = "Curitiba") {
     this.city = city;
@@ -34,7 +34,17 @@ class WeatherSystem {
       console.log(data);
     });
 
-    this.delay = 5000;
+    // How often a request is sent to the weather api
+    // Should be more than 10sec / 10,000ms
+    this.delay = 30000;
+
+    this.isPortOpen = new Promise(res => {
+
+      this.port.on("open", ()=> {
+        res(true)
+      })
+
+    })
   }
 
   getWindSpeed = async () => {
@@ -53,23 +63,34 @@ class WeatherSystem {
 
   translateWindSpeed = (km: number): Buffer => {
     const windSpeedInteger = Math.floor(km);
-    const fromArray = [0];
+    const fromArray = [];
     if (windSpeedInteger < 1 || !windSpeedInteger) fromArray.push(0);
     else if (windSpeedInteger <= 10) fromArray.push(windSpeedInteger);
     else if (windSpeedInteger > 10) fromArray.push(10);
     else fromArray.push(0);
 
     const buf = Buffer.from([fromArray[0]]);
+    // const buf = Buffer.from([0]);
+
 
     return buf;
   };
 
   callback = () =>
     this.getWindSpeed().then((speed) => {
-      console.log("The speed is ", speed);
+      console.log(`The wind speed in ${this.city} is ${speed}km.`);
+
+      const buf = this.translateWindSpeed(speed);
+      console.log("Sending buffer: ", buf, " to Serial Port");
+      this.port.write(buf);
+
     });
 
-  start = () => (this.interval = setInterval(this.callback, this.delay));
+  start = () => {
+    this.isPortOpen.then(() => {
+      this.interval = setInterval(this.callback, this.delay);
+    });
+  };
 
   stop = () => clearInterval(this.interval);
 }

@@ -1,11 +1,9 @@
 (function () {
-  const SerialPort = require("serialport");
-  const blinkTest = require("./tests/blinkTest");
-  const WeatherSystem = require("./api/weatherFetcher");
+  const WeatherSystem = require("./api/weather-system");
   const server = require("./server");
   const fs = require("fs");
-  const numberTest = require("./tests/numberTest");
 
+  // running yarn launch should print the correct port.txt file
   const getPathToSerialPort = () =>
     fs
       .readFileSync("port.txt", {
@@ -13,7 +11,8 @@
       })
       .trim();
 
-  const weatherSystem = new WeatherSystem(null, "Seattle");
+  const weatherSystem = new WeatherSystem(getPathToSerialPort(), "Seattle");
 
   weatherSystem.start();
+
 })();
