@@ -11,7 +11,8 @@
       })
       .trim();
 
-  const weatherSystem = new WeatherSystem(getPathToSerialPort(), "Seattle");
+  
+  const weatherSystem = new WeatherSystem(getPathToSerialPort());
 
   weatherSystem.start();
 

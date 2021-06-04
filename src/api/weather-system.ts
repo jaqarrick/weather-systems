@@ -12,8 +12,10 @@ class WeatherSystem {
   private interval: ReturnType<typeof setInterval>;
   private isPortOpen: Promise<boolean>
 
-  constructor(pathToSerialPort: string | null, city: string = "Curitiba") {
+  constructor(pathToSerialPort: string | null, city: string = "Chicago") {
     this.city = city;
+    console.log("Fetching weather for ", this.city)
+    console.log("Linking arduino from port", pathToSerialPort)
     this.port = pathToSerialPort
       ? new SerialPort(pathToSerialPort, {
           baudRate: 9600,
@@ -41,6 +43,7 @@ class WeatherSystem {
     this.isPortOpen = new Promise(res => {
 
       this.port.on("open", ()=> {
+        console.log("Port is open")
         res(true)
       })
 
@@ -88,6 +91,7 @@ class WeatherSystem {
 
   start = () => {
     this.isPortOpen.then(() => {
+      this.callback()
       this.interval = setInterval(this.callback, this.delay);
     });
   };
