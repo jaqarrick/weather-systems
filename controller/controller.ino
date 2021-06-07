@@ -50,5 +50,8 @@ void loop()
       myServo.write(pos);
       delay(speed);
     }
+
+    // Wait a little in between movements
+    delay(10000);
   }
 }
