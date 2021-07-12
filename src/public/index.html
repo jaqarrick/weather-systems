@@ -1,12 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interface</title>
-</head>
-<body>
-    <h1> Hello from the wind chime </h1>
-</body>
+<html>
+    <head>
+        <title>Weather System</title>
+        <h1>Hello from the Wind Chime!</h1>
+        <div id="speed-display"></div>
+        <div>
+            <span> Where do you want the wind from? </span>
+            <input id="wind-input" type="text" />
+            <button id="submit-btn">=></button>
+        </div>
+    </head>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+        const socket = io();
+        socket.on("send speed", (data) => {
+            const { speed, city } = data;
+            if (speed && city) {
+                console.log(speed, city)
+                const speedDisplay = document.querySelector("#speed-display");
+                console.log(speedDisplay)
+                speedDisplay.innerText = `The windspeed in ${city} is ${speed}km/hr`;
+            }
+        });
+
+        const submitBtn = document.querySelector("#submit-btn");
+        const windInput = document.querySelector("#wind-input");
+
+        submitBtn.onclick = () => {
+            console.log("Getting wind for ", windInput.value);
+            if (windInput.value.length > 0);
+            socket.emit("send city", windInput.value);
+        };
+    </script>
 </html>
