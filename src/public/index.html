@@ -8,6 +8,8 @@
             <span> Where do you want the wind from? </span>
             <input id="wind-input" type="text" />
             <button id="submit-btn">=></button>
+            <button id="pause"> Pause the windchime </button>
+            <button id="resume"> Resume the windchime </button>
         </div>
     </head>
     <script src="/socket.io/socket.io.js"></script>
@@ -26,6 +28,18 @@
 
         const submitBtn = document.querySelector("#submit-btn");
         const windInput = document.querySelector("#wind-input");
+        const pauseBtn = document.querySelector("#pause")
+        const resumeBtn = document.querySelector("#resume")
+
+        pauseBtn.onclick = () => {
+            console.log("pausing")
+            socket.emit("pause")
+        }
+
+        resumeBtn.onclick = () => {
+            console.log("resuming")
+            socket.emit("resume")
+        }
 
         submitBtn.onclick = () => {
             console.log("Getting wind for ", windInput.value);

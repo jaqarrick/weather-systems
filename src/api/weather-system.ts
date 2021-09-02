@@ -13,6 +13,7 @@ class WeatherSystem {
     private interval: ReturnType<typeof setInterval>;
     private isPortOpen: Promise<boolean>;
     private io: any
+    private isPaused: boolean
 
     constructor(
         pathToSerialPort: string | null,
@@ -23,6 +24,7 @@ class WeatherSystem {
         this.io = io;
         this.city = city;
         this.windSpeed = null;
+        this.isPaused = false;
         console.log("Fetching weather for ", this.city);
         console.log(
             pathToSerialPort
@@ -65,6 +67,9 @@ class WeatherSystem {
         });
     }
 
+
+    setPaused = (value: boolean) => this.isPaused = value;
+
     socketConnectionCallback = (socket) => {
       console.log("A user connected");
       console.log(this.city)
@@ -75,6 +80,9 @@ class WeatherSystem {
       socket.on("disconnect", function () {
         console.log("A user disconnected");
       });
+
+      socket.on("pause", () => this.setPaused(true));
+      socket.on("resume", () => this.setPaused(false));
     }
     getWindSpeed = async () => {
         try {
@@ -114,7 +122,7 @@ class WeatherSystem {
             });
 
             this.windSpeed = speed
-            const buf = this.translateWindSpeed(speed);
+            const buf = this.isPaused ? this.translateWindSpeed(0) : this.translateWindSpeed(speed);
             if (this.port) {
                 this.port.write(buf);
                 console.log("Sending buffer: ", buf, " to Serial Port");
