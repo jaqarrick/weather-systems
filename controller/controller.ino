@@ -8,8 +8,8 @@ int pos = 0;
 int incomingData = 0;
 int speed = 0;
 int intensity = 0;
-int l_boundary = 20;
-int h_boundary = 40;
+int l_boundary = 0;
+int h_boundary = 50;
 int center_pos = 25;
 
 void setup()
@@ -45,7 +45,19 @@ void loop()
   if(incomingData < 1){
     myServo.write(center_pos);
   } else {
-    for(pos = center_pos; pos <= h_boundary; pos += 1){
+
+    move_forward();
+
+    delay(2000);
+
+    move_backward();
+    // Wait a little in between movements
+    delay(2000);
+  }
+}
+
+void move_forward(){
+  for(pos = center_pos; pos <= h_boundary; pos += 1){
       myServo.write(pos);
       delay(speed);
     }
@@ -57,10 +69,27 @@ void loop()
 
     for(pos=l_boundary; pos <= center_pos; pos += 1){
       myServo.write(pos);
+      delay(10);
+    }
+
+  return;
+}
+
+void move_backward(){
+
+  for(pos=center_pos; pos >= l_boundary; pos -= 1){
+      myServo.write(pos);
+      delay(speed);
+    }
+   for(pos = l_boundary; pos <= h_boundary; pos += 1){
+      myServo.write(pos);
       delay(speed);
     }
 
-    // Wait a little in between movements
-    delay(2000);
-  }
+    for(pos=h_boundary; pos >= center_pos; pos -= 1){
+      myServo.write(pos);
+      delay(10);
+    }
+
+  return;
 }
