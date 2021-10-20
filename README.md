@@ -6,6 +6,8 @@ _Self-activated wind chime that responds to weather data from anywhere in the wo
 
 Built using a node-linked arduino device - the wind chime moves a simple servo motor depending on the amount of wind of a given location. 
 
+__[Click to hear...](https://vimeo.com/637224646)__
+
 ![video](assets/chime-live.gif)
 ![logs](assets/logs.JPG)
 ### How it works...
